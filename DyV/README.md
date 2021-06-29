@@ -1,6 +1,6 @@
-## Getting Started
+## DyV  Algorithms
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Ejemplos de problemas y algoritmos resueltos mediante la técnica de DyV
 
 ## Folder Structure
 
