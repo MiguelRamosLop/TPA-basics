@@ -3,17 +3,14 @@ public class CuaternarySearch {
     public static void main(String[] args) throws Exception {
         int[] a = {0,1,2,9,4,5,6,7};
         boolean ordenado = true;
-        System.out.print("Array: ");
-        int i;
-        do{
-			for (i=0; i<a.length-1; i++) {
-				if (a[i] > a[i+1])
-					ordenado = false;
-				if (a[i] < a[i+1])
-					ordenado = true;
-			}
-		} while (i<a.length-1);
-        
+        for (int i = 0; i < a.length; i++) {
+            if (i + 1 < a.length) {
+                if (a[ i ] > a[i + 1]) {
+                    ordenado = false;
+                    break;
+                }
+            }
+        }
         if (ordenado == true) {
             System.out.println(" El array ya está ordenado.");
             for (int j = 0; j < a.length; j++ ) {
@@ -84,8 +81,4 @@ public class CuaternarySearch {
             }
         }
     }
-
-
-
-
 }
