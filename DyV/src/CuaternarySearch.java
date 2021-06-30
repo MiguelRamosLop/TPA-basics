@@ -44,11 +44,8 @@ public class CuaternarySearch {
     }
 
     public static int cuaternarysearch (int[] arr, int i, int f, int num) {
-        if (num == arr[i]) {
-            return i;
-        } 
-        if (num == arr[f]) {
-            return f;
+        if ( i == f) {
+            return arr[i];
         } else {
             int h_1 = (i + f) / 4;
             int h_2 = (i + f) / 2;
@@ -74,6 +71,12 @@ public class CuaternarySearch {
                 } 
                 if (num == arr[h_3]) {
                     return h_3;
+                } 
+                if (num == arr[i]) {
+                    return i;
+                } 
+                if (num == arr[f]) {
+                    return f;
                 } else {
                     int message = 0;
                     return message;

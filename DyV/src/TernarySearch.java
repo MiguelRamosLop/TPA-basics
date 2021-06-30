@@ -12,14 +12,18 @@ public class TernarySearch {
     public static int ternarysearch(int[] arr, int i, int f, int num) {
         System.out.println("i = "+i);
         System.out.println("f = "+f);
-        if (num == arr[i]) {
-            return i;
-        } 
-        if (num == arr[f]) {
-            return f;
+        if ( i == f) {
+            return arr[i];
         } else {
             int h_1 = (2 * i + f) / 3;
             int h_2 = (i + 2 * f) / 3;
+
+            if (num == arr[i]) {
+                return i;
+            } 
+            if (num == arr[f]) {
+                return f;
+            }
             if (num < arr[h_1]) {
                 return ternarysearch(arr, i, h_1, num);
             }

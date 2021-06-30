@@ -9,14 +9,18 @@ public class BinarySearch {
         
     }
 
-    public static int binarysearch(int[] arr, int i, int f, int num) {
-        if (num == arr[i]) {
-            return i;
-        } 
-        if (num == arr[f]) {
-            return f;
+    public static int binarysearch(int[] arr, int i, int f, int num) { 
+        if ( i == f) {
+            return arr[i];
         } else {
             int h = (f + i) / 2;
+
+            if (num == arr[i]) {
+                return i;
+            } 
+            if (num == arr[f]) {
+                return f;
+            }
             if (num < arr[h]) {
                 return binarysearch(arr, i, h, num);
             } 
