@@ -1,6 +1,5 @@
 public class TernarySearch {
 
-    
     public static void main(String[] args) throws Exception {
         int[] a = {1,2,3,4,5,6,7,8,9};
         for (int i = 0; i < a.length; i++ )
@@ -11,6 +10,8 @@ public class TernarySearch {
     }
 
     public static int ternarysearch(int[] arr, int i, int f, int num) {
+        System.out.println("i = "+i);
+        System.out.println("f = "+f);
         if (num == arr[i]) {
             return i;
         } 
@@ -19,7 +20,6 @@ public class TernarySearch {
         } else {
             int h_1 = (2 * i + f) / 3;
             int h_2 = (i + 2 * f) / 3;
-
             if (num < arr[h_1]) {
                 return ternarysearch(arr, i, h_1, num);
             }
