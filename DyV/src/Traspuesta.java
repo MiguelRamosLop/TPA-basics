@@ -8,34 +8,7 @@
 
 public class Traspuesta {
 
-	public static boolean esTraspuesta_v1 (int[][] a, int[][] b) {
-		boolean traspuesta = true;
-		
-		for (int fila = 0; fila < a.length; fila++) {
-			for (int col = 0; col < a[fila].length; col++) {
-                if (traspuesta) { //con que un element no coincida cortamos la ejecucion del programa
-                    if (a[fila][col] == b[col][fila])
-					    traspuesta = true;
-				    else 
-					    traspuesta = false;
-                }
-				
-			}
-		}
-		return traspuesta;
-	}
-	
-	public static boolean esTraspuesta_v2 (int[][] a, int[][] b) {
-		// Completar
-		return true; // sentencia insertara para poder compilar
-	}
-	
-	public static boolean esTraspuesta_DyV (int[][] a, int[][] b) {
-		// Completar
-		return true; // sentencia insertara para poder compilar
-	}
-	
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		
 		int[][] m1 = {	{1,2,3,4},
 						{5,6,7,8},
@@ -78,5 +51,33 @@ public class Traspuesta {
 		System.out.println("\n*** FIN ***");
 	
 	}
+
+	public static boolean esTraspuesta_v1 (int[][] a, int[][] b) {
+		boolean traspuesta = true;
+		
+		for (int fila = 0; fila < a.length; fila++) {
+			for (int col = 0; col < a[fila].length; col++) {
+                if (traspuesta) { //con que un element no coincida cortamos la ejecucion del programa
+                    if (a[fila][col] == b[col][fila])
+					    traspuesta = true;
+				    else 
+					    traspuesta = false;
+                }
+				
+			}
+		}
+		return traspuesta;
+	}
+	
+	public static boolean esTraspuesta_v2 (int[][] a, int[][] b) {
+		// Completar
+		return true; // sentencia insertara para poder compilar
+	}
+	
+	public static boolean esTraspuesta_DyV (int[][] a, int[][] b) {
+		// Completar
+		return true; // sentencia insertara para poder compilar
+	}
+	
 
 }
