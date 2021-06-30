@@ -34,8 +34,8 @@ public class Traspuesta {
 		System.out.println(" * esTraspuesta_v2 (m1, m3): " + esTraspuesta_v2(m1,m3));
 		
 		System.out.println("\nPRUEBA 3:");
-		System.out.println(" * esTraspuesta_DyV (m1, m2): " + esTraspuesta_DyV(m1,m2));
-		System.out.println(" * esTraspuesta_DyV (m1, m3): " + esTraspuesta_DyV(m1,m3));
+		System.out.println(" * esTraspuesta_DyV (m1, m2): " + esTraspuesta_DyV(m1,m2,0,m1.length-1));
+		System.out.println(" * esTraspuesta_DyV (m1, m3): " + esTraspuesta_DyV(m1,m3,0,m1.length-1));
 		
 		/* ****** DATOS PERSONALES ****** */
 		
@@ -70,13 +70,47 @@ public class Traspuesta {
 	}
 	
 	public static boolean esTraspuesta_v2 (int[][] a, int[][] b) {
-		// Completar
-		return true; // sentencia insertara para poder compilar
+		boolean traspuesta = true;
+		
+		for (int fila = 0; fila < a.length; fila++) {
+			for (int col = 0; col < a[fila].length; col++) {
+                if (a[fila][col] != b[col][fila]) {
+                    return false;
+                } else {
+                    traspuesta = true;
+                }
+			}
+		}
+		return traspuesta;
 	}
 	
-	public static boolean esTraspuesta_DyV (int[][] a, int[][] b) {
-		// Completar
-		return true; // sentencia insertara para poder compilar
+	public static boolean esTraspuesta_DyV (int[][] a, int[][] b, int i, int f) {
+        boolean traspuesta = true;
+		if (i == f) {
+            for (int fila = 0; fila < a.length; fila++) {
+                for (int col = 0; col < a[fila].length; col++) {
+                    if (a[fila][col] == b[col][fila]) {
+                        traspuesta = true;
+                    }
+                    else {
+                        traspuesta = false;
+                    }
+                }
+            }
+        } else {
+            int h = (i + f) / 2;
+            boolean izq = esTraspuesta_DyV (a,b,i,h);
+            boolean der = esTraspuesta_DyV (a,b,h+1,f);
+
+            if (izq == false || der == false) {
+                traspuesta = false;
+                return traspuesta;
+            } else {
+                traspuesta = true;
+                return traspuesta;
+            }
+        }
+        return traspuesta;
 	}
 	
 
