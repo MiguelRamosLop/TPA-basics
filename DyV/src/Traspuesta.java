@@ -52,38 +52,48 @@ public class Traspuesta {
 	
 	}
 
+	/* 
+	@param a, b dos matrices cuadradas NXN
+	@return booleano para saber si es traspuesta una de la otra o no
+	*/
 	public static boolean esTraspuesta_v1 (int[][] a, int[][] b) {
-		boolean traspuesta = true;
+		boolean traspuesta = true; /* booleano para calibrar si la matriz es traspuesta o no*/
 		
-		for (int fila = 0; fila < a.length; fila++) {
+		for (int fila = 0; fila < a.length; fila++) { /* recorremos las matrices */
 			for (int col = 0; col < a[fila].length; col++) {
-                if (traspuesta) { //con que un elemento no coincida cortamos la ejecucion del programa
-                    if (a[fila][col] == b[col][fila])
+                if (traspuesta) { /* siempre que traspuesta sea true seguimos ejecutando*/
+                    if (a[fila][col] == b[col][fila]) /* si se cumple que ixj = jxi entonces sigue a true*/ 
 					    traspuesta = true;
 				    else 
-					    traspuesta = false;
+					    traspuesta = false; /* si no se actualiza el valor del booleano*/
                 }
 				
 			}
 		}
-		return traspuesta;
+		return traspuesta; /* retornamos el valor booleano de traspuesta*/
 	}
 	
+	/* 
+	@param a, b dos matrices cuadradas NXN
+	@return booleano para saber si es traspuesta una de la otra o no
+	*/
 	public static boolean esTraspuesta_v2 (int[][] a, int[][] b) {
-		boolean traspuesta = true;
-		
-		for (int fila = 0; fila < a.length; fila++) {
-			for (int col = 0; col < a[fila].length; col++) {
-                if (a[fila][col] != b[col][fila]) {
-                    return false;
+		boolean traspuesta = true; /* booleano para calibrar si la matriz es traspuesta o no*/
+		int l = a.length;
+		for (int fila = 0; fila < l; fila++) { /* recorremos las matrices */
+			for (int col = 0; col < l-1-fila; col++) {
+                if (a[fila][col] != b[col][fila]) { /* cuando un elemento ya no cumpla */
+                    return false; /* retorna falso saliendo de la ejecucion*/
                 } else {
-                    traspuesta = true;
+                    traspuesta = true; /* sino el valor de traspuesta sigue siendo true*/
                 }
 			}
 		}
-		return traspuesta;
+		return traspuesta; /* devolvemos el valor de traspuesta*/
+		/* se ejecutara este retrun solo cuando sea traspuesta, dado que si no lo es ya habra salido*/
 	}
-	
+
+
 	public static boolean esTraspuesta_DyV (int[][] a, int[][] b, int i, int f) {
         boolean traspuesta = true;
 		if (i == f) {
