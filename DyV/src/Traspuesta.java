@@ -57,7 +57,7 @@ public class Traspuesta {
 		
 		for (int fila = 0; fila < a.length; fila++) {
 			for (int col = 0; col < a[fila].length; col++) {
-                if (traspuesta) { //con que un element no coincida cortamos la ejecucion del programa
+                if (traspuesta) { //con que un elemento no coincida cortamos la ejecucion del programa
                     if (a[fila][col] == b[col][fila])
 					    traspuesta = true;
 				    else 
