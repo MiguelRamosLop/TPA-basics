@@ -26,16 +26,34 @@ public class Traspuesta {
 						{4,8,4,8}};	
 	
 		System.out.println("PRUEBA 1:");
+		long inicioA1 = System.currentTimeMillis();
 		System.out.println(" * esTraspuesta_v1 (m1, m2): " + esTraspuesta_v1(m1,m2));
 		System.out.println(" * esTraspuesta_v1 (m1, m3): " + esTraspuesta_v1(m1,m3));
+        long finA1 = System.currentTimeMillis();
+         
+        double tiempoA1 = (double) ((finA1 - inicioA1));
+        System.out.println("Tiempo: " +tiempoA1);
+		
 		
 		System.out.println("\nPRUEBA 2:");
+		long inicioA2 = System.currentTimeMillis();
 		System.out.println(" * esTraspuesta_v2 (m1, m2): " + esTraspuesta_v2(m1,m2));
 		System.out.println(" * esTraspuesta_v2 (m1, m3): " + esTraspuesta_v2(m1,m3));
+        long finA2 = System.currentTimeMillis();
+         
+        double tiempoA2 = (double) ((finA2 - inicioA2));
+        System.out.println("Tiempo: " +tiempoA2);
+		
 		
 		System.out.println("\nPRUEBA 3:");
-		System.out.println(" * esTraspuesta_DyV (m1, m2): " + esTraspuesta_DyV(m1,m2,0,m1.length-1));
-		System.out.println(" * esTraspuesta_DyV (m1, m3): " + esTraspuesta_DyV(m1,m3,0,m1.length-1));
+		long inicioA3 = System.currentTimeMillis();
+		System.out.println(" * esTraspuesta_DyV (m1, m2): " + esTraspuesta_DyV_v2 (m1,m2,0,m1.length-1));
+		System.out.println(" * esTraspuesta_DyV (m1, m3): " + esTraspuesta_DyV_v2 (m1,m3,0,m1.length-1));
+        long finA3 = System.currentTimeMillis();
+         
+        double tiempoA3 = (double) ((finA3 - inicioA3));
+        System.out.println("Tiempo: " +tiempoA3);
+		
 		
 		/* ****** DATOS PERSONALES ****** */
 		
@@ -90,38 +108,35 @@ public class Traspuesta {
 			}
 		}
 		return traspuesta; /* devolvemos el valor de traspuesta*/
-		/* se ejecutara este retrun solo cuando sea traspuesta, dado que si no lo es ya habra salido*/
+		/* se ejecutara este return solo cuando sea traspuesta, dado que si no lo es ya habra salido*/
 	}
 
-
-	public static boolean esTraspuesta_DyV (int[][] a, int[][] b, int i, int f) {
-        boolean traspuesta = true;
+	/* 
+	@param a, b dos matrices cuadradas NXN, init y fin
+	@return booleano para saber si es traspuesta una de la otra o no
+	*/
+	public static boolean esTraspuesta_DyV_v2 (int[][] a, int[][] b, int i, int f) {
+		/*  caso base: inti igual a fin*/
 		if (i == f) {
-            for (int fila = 0; fila < a.length; fila++) {
-                for (int col = 0; col < a[fila].length; col++) {
-                    if (a[fila][col] == b[col][fila]) {
-                        traspuesta = true;
-                    }
-                    else {
-                        traspuesta = false;
-                    }
-                }
-            }
-        } else {
-            int h = (i + f) / 2;
-            boolean izq = esTraspuesta_DyV (a,b,i,h);
-            boolean der = esTraspuesta_DyV (a,b,h+1,f);
-
-            if (izq == false || der == false) {
-                traspuesta = false;
-                return traspuesta;
-            } else {
-                traspuesta = true;
-                return traspuesta;
-            }
+			/* comprobamos si se cumple para la dos matrices*/
+            if (a[i][f] == b[f][i]) { /* vemos si se cumple el requisito paa ser traspuesta*/
+				return true;
+			}
+			else {
+				return false;
+			}
+        } else { /*  caso recursivo: particionar, llamar recursivamente, combinar*/
+            int h = (i + f) / 2; /* dividimos por la mitad llamamos recursivamente*/
+            boolean izq = esTraspuesta_DyV_v2 (a,b,i,h);
+            boolean der = esTraspuesta_DyV_v2 (a,b,h+1,f);
+			/* si cualquiera de las partes a dado false es que ya no es traspuesta*/
+			if(izq == false || der == false) {
+				return false; /* retornamos false*/
+			}else { /* si la parte que hemos comprobado es true es que por ahora es traspuesta*/
+				return true; /* retornamos true y seguimos ejecutando */
+			}
         }
-        return traspuesta;
+        
 	}
-	
 
 }
