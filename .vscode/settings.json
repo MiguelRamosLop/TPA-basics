@@ -1,2 +1,6 @@
 {
+    "java.project.sourcePaths": [
+        "DyV/src",
+        "Arboles/src"
+    ]
 }
