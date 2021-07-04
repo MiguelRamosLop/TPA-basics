@@ -1,3 +1,5 @@
+import javax.imageio.plugins.tiff.TIFFImageReadParam;
+
 public class ArbolBin<T> {
 
 	class NodoBin {
@@ -48,7 +50,6 @@ public class ArbolBin<T> {
 	}
 	
 	public void dibujar(int nivel){
-		
 		if ( !this.esVacio() ){
 			for (int i = 1; i<= nivel; i++)
 				System.out.print("  ");
@@ -95,7 +96,61 @@ public class ArbolBin<T> {
 		}
 	}
 
+	public int calcularAltura(ArbolBin<T> nodo) {
+		int altura = 0;
+		if (!nodo.esVacio()) { 
+			if (!nodo.hijoIzquierdo().esVacio()) {
+				altura = Math.max(altura, nodo.calcularAltura(nodo.hijoIzquierdo()));
+			}
+
+			if (!nodo.hijoDerecho().esVacio()) {
+				altura = Math.max(altura, nodo.calcularAltura(nodo.hijoDerecho()));
+			}
+			altura++;
+		}
+		return altura;
+	}
+
+	public void imprimir_ultimo_nivel (ArbolBin<T> nodo, int nivel) {
+		if (nivel == 1) {
+			System.out.println(nodo.raiz());
+		}
+		if (!nodo.hijoIzquierdo().esVacio()) {
+			imprimir_ultimo_nivel(nodo.hijoIzquierdo(), nivel-1);
+		}
+		if (!nodo.hijoDerecho().esVacio()) {
+			imprimir_ultimo_nivel(nodo.hijoDerecho(), nivel-1);
+		}
 		
+	}
+
+	public void encontrar_nodos_hoja (ArbolBin<T> nodo) {
+		if (nodo.hijoIzquierdo().esVacio() && nodo.hijoDerecho().esVacio()) {
+			System.out.println(nodo.raiz());
+		} 
+		if (!nodo.hijoIzquierdo().esVacio()) {
+			nodo.encontrar_nodos_hoja(nodo.hijoIzquierdo());
+		}
+		if (!nodo.hijoDerecho().esVacio()) {
+			nodo.encontrar_nodos_hoja(nodo.hijoDerecho());
+		}
+		
+	}
+	
+	
+	public int numero_nodos_arbol (ArbolBin<Integer> nodo, int nivel) {
+		int altura = nodo.calcularAltura(nodo);
+		System.out.println(altura);
+		if ( nivel == altura) {
+			return nivel;
+		} else {
+			int x = numero_nodos_arbol(nodo.hijoIzquierdo(),nivel-1);
+			int y = numero_nodos_arbol(nodo.hijoDerecho(),nivel-1);
+
+			return x + 1 + y;
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
@@ -132,8 +187,20 @@ public class ArbolBin<T> {
 		raiz.inorden();
 		System.out.println();
 
+		System.out.println("Altura del arbol: ");
+		int altura_raiz = raiz.calcularAltura(raiz);
+		System.out.println(altura_raiz);
 
+		
+		System.out.println("Imprimir ultimo nivel: ");
+		raiz.imprimir_ultimo_nivel(raiz, 4);
 
+		System.out.println("Nodos hoja: ");
+		raiz.encontrar_nodos_hoja(raiz);
+
+		System.out.println("Numero de nodos: ");
+		raiz.numero_nodos_arbol(raiz,1);
+		
 
 		/* También pueden instanciarse de otros tipos como de caracteres: */
 		ArbolBin<Character> g = new ArbolBin<Character>(new ArbolBin<Character>(),'G',new ArbolBin<Character>());
