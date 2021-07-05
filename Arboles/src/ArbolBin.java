@@ -1,5 +1,3 @@
-import javax.imageio.plugins.tiff.TIFFImageReadParam;
-
 public class ArbolBin<T> {
 
 	class NodoBin {
@@ -96,6 +94,7 @@ public class ArbolBin<T> {
 		}
 	}
 
+
 	public int calcularAltura(ArbolBin<T> nodo) {
 		int altura = 0;
 		if (!nodo.esVacio()) { 
@@ -137,20 +136,54 @@ public class ArbolBin<T> {
 		
 	}
 	
-	
-	public int numero_nodos_arbol (ArbolBin<Integer> nodo, int nivel) {
-		int altura = nodo.calcularAltura(nodo);
-		System.out.println(altura);
-		if ( nivel == altura) {
-			return nivel;
+	public int calcular_nodos_Recursivo (ArbolBin<T> nodo) {
+		int x = 1;
+		if (!nodo.hijoIzquierdo().esVacio()) {
+			x += calcular_nodos_Recursivo(nodo.hijoIzquierdo());
+		}
+		if (!nodo.hijoDerecho().esVacio()) {
+			x += calcular_nodos_Recursivo(nodo.hijoDerecho());
+		}
+		return x;
+	}
+
+	public int calcular_nodos_DyV (ArbolBin<T> nodo) {
+		if (nodo.esVacio()) {
+			return 0;
 		} else {
-			int x = numero_nodos_arbol(nodo.hijoIzquierdo(),nivel-1);
-			int y = numero_nodos_arbol(nodo.hijoDerecho(),nivel-1);
+			int x = calcular_nodos_DyV(nodo.hijoIzquierdo());
+			int y = calcular_nodos_DyV(nodo.hijoDerecho());
 
 			return x + 1 + y;
 		}
-		
 	}
+
+	public int calcular_suma (ArbolBin<Integer> nodo) {
+		if (nodo.esVacio()) {
+			return 0;
+		} else {
+			int x = calcular_suma(nodo.hijoIzquierdo());
+			int y = calcular_suma(nodo.hijoDerecho());
+
+			return x + y + nodo.raiz();
+		}
+	}
+
+	public void eliminar_nodos_sin_hijos (ArbolBin<T> nodo) {
+		if (nodo.hijoIzquierdo().esVacio() && nodo.hijoDerecho().esVacio()) {
+			System.out.println("Eliminando nodo... "+nodo.raiz());
+			nodo.raiz = null;
+		} else {
+			if (!nodo.hijoIzquierdo().esVacio()) {
+				eliminar_nodos_sin_hijos(nodo.hijoIzquierdo());
+			}
+
+			if (!nodo.hijoDerecho().esVacio()) {
+				eliminar_nodos_sin_hijos(nodo.hijoDerecho());
+			}
+		}
+	}
+
 
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
@@ -198,8 +231,17 @@ public class ArbolBin<T> {
 		System.out.println("Nodos hoja: ");
 		raiz.encontrar_nodos_hoja(raiz);
 
-		System.out.println("Numero de nodos: ");
-		raiz.numero_nodos_arbol(raiz,1);
+		int nodes_rec = raiz.calcular_nodos_Recursivo(raiz);
+		System.out.println("Numero de nodos rec: " + nodes_rec);
+		int nodes_dyv = raiz.calcular_nodos_DyV(raiz);
+		System.out.println("Numero de nodos dyv: " +nodes_dyv);
+		
+		
+		System.out.println("Delete nodos sin hijos: ");
+		raiz.eliminar_nodos_sin_hijos(raiz);
+
+		int suma = raiz.calcular_suma(raiz);
+		System.out.println("Suma de la info de los nodos: "+suma);
 		
 
 		/* También pueden instanciarse de otros tipos como de caracteres: */
