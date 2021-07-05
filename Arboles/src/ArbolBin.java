@@ -184,6 +184,34 @@ public class ArbolBin<T> {
 		}
 	}
 
+	public int arbol_espejo (ArbolBin<Integer> nodo) {
+		if (nodo.raiz() == null) {
+			return nodo.raiz();
+		} else {
+			ArbolBin<Integer> aux = new ArbolBin<Integer>();
+			aux.raiz = nodo.raiz;
+			int a = aux.hijoIzquierdo().raiz();
+			a = arbol_espejo(nodo.hijoDerecho());
+			int b = aux.hijoDerecho().raiz();
+			b = arbol_espejo(nodo.hijoIzquierdo());
+
+			aux.dibujar(1);
+			return aux.raiz();
+		}
+		
+	}
+
+	void swap_node(ArbolBin<Integer> n) {
+		if(n != null) {
+		ArbolBin<Integer> tmp = n.hijoIzquierdo();
+		n.hijoIzquierdo().raiz() = n.hijoDerecho().raiz();
+		b = tmp.raiz();
+	  
+		swap_node(n.hijoIzquierdo());
+		swap_node(n.hijoDerecho());
+		}
+	  }
+	  
 
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
@@ -242,7 +270,10 @@ public class ArbolBin<T> {
 
 		int suma = raiz.calcular_suma(raiz);
 		System.out.println("Suma de la info de los nodos: "+suma);
+
+		//raiz.arbol_espejo(raiz);
 		
+		raiz.swap_node(raiz);
 
 		/* También pueden instanciarse de otros tipos como de caracteres: */
 		ArbolBin<Character> g = new ArbolBin<Character>(new ArbolBin<Character>(),'G',new ArbolBin<Character>());
