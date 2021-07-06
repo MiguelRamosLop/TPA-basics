@@ -13,8 +13,7 @@ public class AlgoritmoCambioRamos {
         /* nuestro array solucion*/
         int cambio[] = new int[valores.length];
 
-        System.out.println("Cambio = ");
-        cambioMinimo(valores, cantidades, cantidad, cambio);
+        System.out.println(cambioMinimo(valores, cantidades, cantidad, cambio));
 
 
     }
@@ -30,11 +29,12 @@ public class AlgoritmoCambioRamos {
         for (int i = 0; i < valores.length; i++) {
 
             /* siempre que no lleguemos a la cantidad y que existan monedas para cada tipo*/
-            while (sumatorio_monedas <= cantidad && cantidades[i] >= 0) {
+            while (cantidad >= sumatorio_monedas && cantidades[i] > 0) {
                 /* actualizamos el sumatorio de las monedas*/
                 sumatorio_monedas = sumatorio_monedas + valores[i]; 
                 /* icnrememntamos el numero de monedas cogidas */
                 cantidad_monedas_cada_tipo++;
+                cantidades[i] = cantidades[i]-1;
             }
 
             /* en el caso de que sea mayor, vamos restando los valores que nos pasamos*/
@@ -48,13 +48,13 @@ public class AlgoritmoCambioRamos {
         }
 
        if (sumatorio_monedas == cantidad) {
-            /* imrpimo el resultado del array */
+            /* imprimo el resultado del array */
             for (int i = 0; i < cambio.length; i++) {
                 System.out.print(cambio[i] + " ");
             }
             return true;
        } else {
-            /* imrpimo el resultado del array siguiendo las instrucciones de la entrega */
+            /* imprimo el resultado del array siguiendo las instrucciones de la entrega */
             for (int i = 0; i < cambio.length; i++) {
                 if (i == 0) {
                     cambio[i] = -1;
