@@ -172,7 +172,7 @@ public class ArbolBin<T> {
 	public void eliminar_nodos_sin_hijos (ArbolBin<T> nodo) {
 		if (nodo.hijoIzquierdo().esVacio() && nodo.hijoDerecho().esVacio()) {
 			System.out.println("Eliminando nodo... "+nodo.raiz());
-			nodo.raiz = null;
+			nodo = null;
 		} else {
 			if (!nodo.hijoIzquierdo().esVacio()) {
 				eliminar_nodos_sin_hijos(nodo.hijoIzquierdo());
@@ -183,6 +183,26 @@ public class ArbolBin<T> {
 			}
 		}
 	}
+	
+	public void arbolBinario_Espejo (ArbolBin<T> nodo) {
+		if (nodo.raiz() == null) {
+			return;
+		} else {
+			if (!nodo.hijoIzquierdo().esVacio()) {
+				arbolBinario_Espejo(nodo.hijoIzquierdo());
+			}
+			if (!nodo.hijoDerecho().esVacio()) {
+				arbolBinario_Espejo(nodo.hijoDerecho());
+			}
+
+			ArbolBin<T> aux3 = nodo.hijoDerecho();
+			ArbolBin<T> aux2 = nodo.hijoIzquierdo();
+			ArbolBin<T> aux = nodo.hijoIzquierdo();
+			aux2 = nodo.hijoDerecho();
+			aux3 = aux;
+		}
+	}
+
 
 	void mirror (NodoBin n) {
 		if (n == null) {
@@ -256,12 +276,13 @@ public class ArbolBin<T> {
 		int suma = raiz.calcular_suma(raiz);
 		System.out.println("Suma de la info de los nodos: "+suma);
 
+		raiz.arbolBinario_Espejo(raiz);
+		raiz.inorden();
+
+
 		/* También pueden instanciarse de otros tipos como de caracteres: */
 		ArbolBin<Character> g = new ArbolBin<Character>(new ArbolBin<Character>(),'G',new ArbolBin<Character>());
 		ArbolBin<Character> h = new ArbolBin<Character>(new ArbolBin<Character>(),'H',g);
-	
-
-
 	}
 
 }
