@@ -14,8 +14,6 @@ public class AlgoritmoCambioRamos {
         int cambio[] = new int[valores.length];
 
         System.out.println(cambioMinimo(valores, cantidades, cantidad, cambio));
-
-
     }
     
     public static boolean cambioMinimo (int[] valores, int[] cantidades, int cantidad, int[] cambio) {
