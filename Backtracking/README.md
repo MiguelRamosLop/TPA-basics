@@ -1,6 +1,6 @@
-## Getting Started
+## Backtracking / Vuelta atrás
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Todo lo relacionado con el backtracking (algoritmos, ejemplos...)
 
 ## Folder Structure
 
