@@ -13,7 +13,22 @@ public class ArbolBin<T> {
 		}
 	}
 
-	private NodoBin raiz;
+	public void printPostorder() {
+		printPostorder(raiz);
+		System.out.println();
+	   }
+	   public void printPostorder(NodoBin node) {
+		 if (node == null) return;
+	   
+		 // first recur on both subtrees
+		 printPostorder(node.hijoIzq);
+		 printPostorder(node.hijoDcho);
+	   
+		 // then deal with the node
+		System.out.print(node.info + "  ");
+	   }
+
+	NodoBin raiz;
 
 	public ArbolBin() {
 		raiz = null;
@@ -278,6 +293,12 @@ public class ArbolBin<T> {
 
 		raiz.arbolBinario_Espejo(raiz);
 		raiz.inorden();
+
+		System.out.println("------------------------");
+		raiz.printPostorder(raiz.raiz);
+		System.out.println("------------------------");
+		raiz.mirror(raiz.raiz);
+		raiz.printPostorder(raiz.raiz);
 
 
 		/* También pueden instanciarse de otros tipos como de caracteres: */
