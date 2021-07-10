@@ -45,10 +45,8 @@ public class AlgoritmoEspejo <Info> {
             return arbol;
         } else {
            arbol.mirror(arbol.raiz);
-
            return arbol;
         }
-
     }
 
 	public static void main(String[] args) {
