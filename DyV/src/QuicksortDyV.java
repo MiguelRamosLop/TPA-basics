@@ -25,9 +25,9 @@ public class QuicksortDyV {
             for (int y = pivot + 1; y < f; y++) {
                 if (arr[y] < data) {
                     pivot++;
-                    if (pivot != y) {
-                        change(arr,pivot,y);
-                    }
+                    //if (pivot != y) {
+                        //change(arr,pivot,y);
+                    //}
                 }
             }
         }

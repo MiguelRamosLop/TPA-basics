@@ -2,7 +2,7 @@
  * 
  * @author Miguel Ramos Lopez
  * @expediente 21937215
- * @fecha dd-mm-aaa
+ * @fecha 20-07-2021
  *
  */
 
@@ -26,34 +26,16 @@ public class Traspuesta {
 						{4,8,4,8}};	
 	
 		System.out.println("PRUEBA 1:");
-		long inicioA1 = System.currentTimeMillis();
 		System.out.println(" * esTraspuesta_v1 (m1, m2): " + esTraspuesta_v1(m1,m2));
 		System.out.println(" * esTraspuesta_v1 (m1, m3): " + esTraspuesta_v1(m1,m3));
-        long finA1 = System.currentTimeMillis();
          
-        double tiempoA1 = (double) ((finA1 - inicioA1));
-        System.out.println("Tiempo: " +tiempoA1);
-		
-		
-		System.out.println("\nPRUEBA 2:");
-		long inicioA2 = System.currentTimeMillis();
+		System.out.println("PRUEBA 2:");
 		System.out.println(" * esTraspuesta_v2 (m1, m2): " + esTraspuesta_v2(m1,m2));
 		System.out.println(" * esTraspuesta_v2 (m1, m3): " + esTraspuesta_v2(m1,m3));
-        long finA2 = System.currentTimeMillis();
-         
-        double tiempoA2 = (double) ((finA2 - inicioA2));
-        System.out.println("Tiempo: " +tiempoA2);
-		
-		
-		System.out.println("\nPRUEBA 3:");
-		long inicioA3 = System.currentTimeMillis();
+    
+		System.out.println("PRUEBA 3:");
 		System.out.println(" * esTraspuesta_DyV (m1, m2): " + esTraspuesta_DyV_v2 (m1,m2,0,m1.length-1));
 		System.out.println(" * esTraspuesta_DyV (m1, m3): " + esTraspuesta_DyV_v2 (m1,m3,0,m1.length-1));
-        long finA3 = System.currentTimeMillis();
-         
-        double tiempoA3 = (double) ((finA3 - inicioA3));
-        System.out.println("Tiempo: " +tiempoA3);
-		
 		
 		/* ****** DATOS PERSONALES ****** */
 		
