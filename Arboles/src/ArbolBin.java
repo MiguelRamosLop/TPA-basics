@@ -277,6 +277,27 @@ public class ArbolBin<T> {
 		else return(false);
 	  }
 
+	  boolean isBST(ArbolBin <Integer> node)
+		{
+			if (node == null)
+				return true;
+			
+			/* False if left is > than node */
+			if (node.hijoIzquierdo() != null && node.hijoIzquierdo().raiz() > node.raiz())
+				return false;
+			
+			/* False if right is < than node */
+			if (node.hijoDerecho() != null && node.hijoDerecho().raiz() < node.raiz())
+				return false;
+			
+			/* False if, recursively, the left or right is not a BST */
+			if (isBST(node.hijoIzquierdo()) == false || !isBST(node.hijoDerecho()) == false)
+				return false;
+			
+			/* Passing all that, it's a BST */
+			return true;
+		}
+
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
 		
@@ -352,6 +373,10 @@ public class ArbolBin<T> {
 		
 		System.out.println("Los arboles son iguales???:");
 		System.out.println(raiz.sameTree(raiz.raiz, hijoIzq_1.raiz));
+
+
+		System.out.println("Es BST??");
+		System.out.println(raiz.isBST(raiz));
 		
 	}
 
