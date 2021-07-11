@@ -260,6 +260,23 @@ public class ArbolBin<T> {
 		
 	}
 
+
+	boolean sameTree(NodoBin a, NodoBin b) {
+		// si los dos vacios, los dos son iguales
+		if (a==null && b==null) return(true);
+	  
+		// si los dos no son vacios los comparamos
+		else if (a!=null && b!=null) {
+		  return(
+			a.info == b.info &&
+			sameTree(a.hijoIzq, b.hijoIzq) &&
+			sameTree(a.hijoDcho, b.hijoDcho)
+		  );
+		}
+		// si uno es vacio y otro no, false
+		else return(false);
+	  }
+
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
 		
@@ -278,6 +295,12 @@ public class ArbolBin<T> {
 		
 		/* Instanciar raiz (nivel 1)*/
 		ArbolBin<Integer> raiz = new ArbolBin<Integer>(hijoIzq_1,1,hijoDer_1);
+
+		/* También pueden instanciarse de otros tipos como de caracteres: */
+		ArbolBin<Character> g = new ArbolBin<Character>(new ArbolBin<Character>(),'G',new ArbolBin<Character>());
+		ArbolBin<Character> h = new ArbolBin<Character>(new ArbolBin<Character>(),'H',g);
+
+
 
 		/* dibujamos el arbol*/
 		raiz.dibujar(1);
@@ -318,9 +341,6 @@ public class ArbolBin<T> {
 		int suma = raiz.calcular_suma(raiz);
 		System.out.println("Suma de la info de los nodos: "+suma);
 
-		raiz.arbolBinario_Espejo(raiz);
-		raiz.inorden();
-
 		System.out.println("Arbol espejo:");
 		raiz.mirror(raiz.raiz);
 		raiz.dibujar(1);
@@ -330,10 +350,9 @@ public class ArbolBin<T> {
 		int x = raiz.pathSuma(raiz, sumaPaths);
 		System.out.println(x);
 		
-
-		/* También pueden instanciarse de otros tipos como de caracteres: */
-		ArbolBin<Character> g = new ArbolBin<Character>(new ArbolBin<Character>(),'G',new ArbolBin<Character>());
-		ArbolBin<Character> h = new ArbolBin<Character>(new ArbolBin<Character>(),'H',g);
+		System.out.println("Los arboles son iguales???:");
+		System.out.println(raiz.sameTree(raiz.raiz, hijoIzq_1.raiz));
+		
 	}
 
 }
