@@ -233,6 +233,33 @@ public class ArbolBin<T> {
 		}
 	}
 
+	/* 
+			Dado un árbol binario y una suma, devuelve verdadero si el árbol tiene
+			 una ruta de raíz a hoja tal que la suma de todos los valores a lo largo de la 
+			 ruta es igual a la suma dada. Devuelve falso si no se puede encontrar dicha ruta.
+	*/
+	public int pathSuma (ArbolBin<Integer> n, int sumaPaths) {
+		if (n == null || sumaPaths < 0) {
+			return 0;
+		} else{
+			if (sumaPaths == 0) {
+				return 1;
+			}
+			
+			sumaPaths = sumaPaths - n.raiz();
+			
+			if (!n.hijoIzquierdo().esVacio()) {
+				int x = pathSuma(n.hijoIzquierdo(), sumaPaths);
+			}
+			if (!n.hijoDerecho().esVacio()) {
+				int y = pathSuma(n.hijoDerecho(), sumaPaths);
+			}
+
+			return 1;
+		}
+		
+	}
+
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
 		
@@ -294,12 +321,15 @@ public class ArbolBin<T> {
 		raiz.arbolBinario_Espejo(raiz);
 		raiz.inorden();
 
-		System.out.println("------------------------");
-		raiz.printPostorder(raiz.raiz);
-		System.out.println("------------------------");
+		System.out.println("Arbol espejo:");
 		raiz.mirror(raiz.raiz);
-		raiz.printPostorder(raiz.raiz);
+		raiz.dibujar(1);
 
+		System.out.println("Existe alguna suma de paths que de 7???:");
+		int sumaPaths = 7;
+		int x = raiz.pathSuma(raiz, sumaPaths);
+		System.out.println(x);
+		
 
 		/* También pueden instanciarse de otros tipos como de caracteres: */
 		ArbolBin<Character> g = new ArbolBin<Character>(new ArbolBin<Character>(),'G',new ArbolBin<Character>());
