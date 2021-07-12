@@ -359,6 +359,48 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		return texto;
 	}
 
+    public Lista <Clave> listaAdyacentes (Clave v) {
+        int i = 1;
+
+        Lista <Clave> listaAdyacentes = new Lista<Clave>();
+
+        /* codigo de listaSucesores*/
+
+		//al igual que en los otros metodos, buscamos el vertice
+		while (i <= vertices.longitud()
+				&& !vertices.consultar(i).clave.equals(v))
+			i++;
+
+        // Si lo encuentra, introduce sus sucesores a la lista
+		if (i <= vertices.longitud())
+        for (int j = 1; j <= aristas.consultar(i).longitud(); j++)
+            listaAdyacentes.insertar(j,
+                    aristas.consultar(i).consultar(j).destino.clave);
+
+        /* codigo listaPredecesores*/
+
+        for (int j = 1; j <= vertices.longitud(); j++) {
+            int guia = 1;
+            boolean found = false;
+            /*
+            *  Si encuentra el vertice v como destino de un vertice o, no
+            *  aparece mas veces como destino de o
+            */
+            while (!found && guia <= aristas.consultar(j).longitud()) {
+                if (v.equals(aristas.consultar(j).consultar(guia).destino.clave)) {
+                    listaAdyacentes.insertar(1, vertices.consultar(j).clave);
+                    found = true;
+                } else {
+                    guia++;
+                }	
+            }
+        }
+        
+        /* devolvemos la lista de adyacentes*/
+        return listaAdyacentes;
+        
+    }
+
     public static void main(String args[]) {
         /* nos creamos un grafo */
         Grafo<String, String, Integer> graph = new Grafo<String, String, Integer>();
@@ -402,7 +444,9 @@ public class Grafo<Clave, InfoVertice, Coste> {
         graph.eliminarArista("E", "C");
 
         System.out.println(graph);
+
         
+        System.out.println("Lista adyacentes a B (tanto predecesores como sucesores): " + graph.listaAdyacentes("B"));
     }
 	
 
