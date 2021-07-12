@@ -400,28 +400,120 @@ public class Grafo<Clave, InfoVertice, Coste> {
         return listaAdyacentes;
         
     }
+	
+
+	public int costeAristaEntero (Clave v1, Clave v2) {
+		int i = 1;
+		int coste = 0;
+
+		// Busca el vertice origen
+		while (i <= vertices.longitud()
+				&& !vertices.consultar(i).clave.equals(v1))
+			i++;
+
+		// Si existe, busca el vertice destino y devuelve el peso de la arista
+		if (i <= vertices.longitud()) {
+			int j = 1;
+			boolean aristaEncontrada = false;
+			while (!aristaEncontrada && j <= aristas.consultar(i).longitud()) {
+				if (aristas.consultar(i).consultar(j).destino.clave.equals(v2)) {
+					coste = (int) aristas.consultar(i).consultar(j).coste;
+					aristaEncontrada = true;
+				}
+				j++;
+			}
+		}
+
+		return coste;
+	}
 
 
     public boolean comprobarCiclos (Lista <Clave> visitados, Clave v1, Clave v2) {
-        boolean visitado = false;
+        int visitado = 0;
 
         Lista<Clave> listaAdyacencia_v1 = listaAdyacentes(v1);
         Lista<Clave> listaAdyacencia_v2 = listaAdyacentes(v2);
 
-        for (int i = 0; i < listaAdyacencia_v1.longitud(); i++) {
+        for (int i = 1; i <= listaAdyacencia_v1.longitud(); i++) {
             if (listaAdyacencia_v1.consultar(i) == v1) {
-                visitado = true;
+                visitado ++;
             }
         }
 
-        for (int j = 0; j < listaAdyacencia_v2.longitud(); j++) {
+        for (int j = 1; j <= listaAdyacencia_v2.longitud(); j++) {
             if (listaAdyacencia_v2.consultar(j) == v2) {
-                visitado = true;
+                visitado++;
             }
         }
 
-        return visitado;
+        if (visitado >= 2) {
+			return false;
+		} else {
+			return true;
+		}
     }
+
+	public Lista<Par<Clave>> kruskalAlgorithm (Grafo <String, String, Integer> graph) {
+
+		Lista<Clave> visitados = new Lista<Clave>();
+		Lista <Par<Clave>> caminoRecubrimientoMinimo = new Lista <Par<Clave>>();
+
+		//Creamos una matriz, que con el bucle for rellenaremos. Esta sera la matriz de adyacencia.
+		int[][] arista = new int[vertices.longitud()][vertices.longitud()];
+
+		//Creamos la matriz de adyacencia rellenando cada posicion con su peso correspondiente.
+		for(int i = 1; i <= vertices.longitud(); i++) {
+			for(int j = 1; j <= vertices.longitud(); j++) {
+				arista[i-1][j-1] = costeAristaEntero(vertices.consultar(i).clave,vertices.consultar(j).clave);
+			}
+		}
+
+		int menor = 10000;
+		int costeTotal = 0;
+		int verticesVistos = 1;
+
+		
+		while(vertices.longitud() > verticesVistos) {
+			for(int i = 1; i <= vertices.longitud(); i++) {
+				for(int j = 1; j <= vertices.longitud(); j++) {
+					if(arista[i-1][j-1] < menor && arista[i-1][j-1] != 0) {
+						if(visitados.longitud() != 0) {
+							menor = arista[i-1][j-1];
+						}else {
+							if(comprobarCiclos(visitados, vertices.consultar(i).clave, vertices.consultar(j).clave)) {
+								menor = arista[i-1][j-1];
+							}
+						}
+					}
+				}
+			}
+
+			for (int i = 1; i <= vertices.longitud(); i++) {
+				for (int j = 1; j <= vertices.longitud(); j++) {
+					if(arista[i-1][j-1] == menor) {
+						arista[i-1][j-1] = 0;
+						visitados.insertar(1, vertices.consultar(i).clave);	
+						visitados.insertar(1, vertices.consultar(j).clave);	
+						caminoRecubrimientoMinimo.insertar(1, new Par(vertices.consultar(i).clave,vertices.consultar(j).clave));
+						menor = 100000;
+						verticesVistos++;
+						costeTotal = costeTotal + costeAristaEntero(vertices.consultar(i).clave,vertices.consultar(j).clave);
+					}
+				}
+			}
+
+		}
+
+		/*
+			 * Recorremos la lista de pares sol, con el objetivo de mostrar los vertices (origen y destino), es decir,
+			 * mostraremos el camino a seguir para cumplir el algoritmo de Kruskal
+			 */
+			for (int i = 1; i <= caminoRecubrimientoMinimo.longitud(); i++) {
+				System.out.println(caminoRecubrimientoMinimo.consultar(i).getOrigen()+ " --> " + caminoRecubrimientoMinimo.consultar(i).getDestino());
+		}
+		System.out.println("Coste total de las aristas = "+costeTotal);
+		return caminoRecubrimientoMinimo;
+	}
 
     public static void main(String args[]) {
         /* nos creamos un grafo */
@@ -469,7 +561,12 @@ public class Grafo<Clave, InfoVertice, Coste> {
 
         
         System.out.println("Lista adyacentes a B (tanto predecesores como sucesores): " + graph.listaAdyacentes("B"));
-    }
+    
+	
+		System.out.println("-------------");
+		graph.kruskalAlgorithm(graph);
+	
+	}
 	
 
 }//class""
