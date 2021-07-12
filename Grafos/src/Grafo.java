@@ -401,6 +401,28 @@ public class Grafo<Clave, InfoVertice, Coste> {
         
     }
 
+
+    public boolean comprobarCiclos (Lista <Clave> visitados, Clave v1, Clave v2) {
+        boolean visitado = false;
+
+        Lista<Clave> listaAdyacencia_v1 = listaAdyacentes(v1);
+        Lista<Clave> listaAdyacencia_v2 = listaAdyacentes(v2);
+
+        for (int i = 0; i < listaAdyacencia_v1.longitud(); i++) {
+            if (listaAdyacencia_v1.consultar(i) == v1) {
+                visitado = true;
+            }
+        }
+
+        for (int j = 0; j < listaAdyacencia_v2.longitud(); j++) {
+            if (listaAdyacencia_v2.consultar(j) == v2) {
+                visitado = true;
+            }
+        }
+
+        return visitado;
+    }
+
     public static void main(String args[]) {
         /* nos creamos un grafo */
         Grafo<String, String, Integer> graph = new Grafo<String, String, Integer>();
