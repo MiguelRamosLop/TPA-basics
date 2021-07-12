@@ -1,6 +1,6 @@
-## Getting Started
+## Grafos 
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Todo lo relacionado con grafos (clases, recorridos, caminos de recubrimiento minimo, spanning trees)
 
 ## Folder Structure
 
