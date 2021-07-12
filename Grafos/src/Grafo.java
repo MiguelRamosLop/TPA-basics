@@ -358,6 +358,52 @@ public class Grafo<Clave, InfoVertice, Coste> {
 
 		return texto;
 	}
+
+    public static void main(String args[]) {
+        /* nos creamos un grafo */
+        Grafo<String, String, Integer> graph = new Grafo<String, String, Integer>();
+
+        /* primero creamos la estructura, los vértices*/
+        graph.insertarVertice("A", "A9");
+        graph.insertarVertice("B", "B9");
+        graph.insertarVertice("C", "C9");
+        graph.insertarVertice("D", "D9");
+        graph.insertarVertice("E", "E9");
+
+
+        /* y luego los costes, las aristas*/
+        graph.insertarArista("A", "B", 20);
+        graph.insertarArista("A", "C", 13);
+        graph.insertarArista("A", "D", 19);
+        graph.insertarArista("B", "C", 10);
+        graph.insertarArista("B", "E", 12);
+        graph.insertarArista("E", "C", 12);
+        graph.insertarArista("D", "C", 9);
+
+        System.out.println(graph);
+
+        System.out.println("Es vacio?? " + graph.esVacio());
+
+        System.out.println("Numero de vértices: " + graph.numVertices());
+
+        System.out.println("Lista de sucesores a mi vertice A: " + graph.listaSucesores("A"));
+
+        System.out.println("Lista de predecesores a mi vertice C: " + graph.listaPredecesores("C"));
+
+        System.out.println("Grado de entrada a C: " + graph.gradoEntrada("C"));
+
+        System.out.println("Grado de salida de A: " + graph.gradoSalida("A"));
+
+        System.out.println("Coste arista de B a C: " + graph.costeArista("B", "C"));
+        
+        System.out.println("Existe arista de C a A: " + graph.existeArista("C", "A"));
+
+        System.out.println("Eliminando arista E a C ...");
+        graph.eliminarArista("E", "C");
+
+        System.out.println(graph);
+        
+    }
 	
 
-}//class
+}//class""
