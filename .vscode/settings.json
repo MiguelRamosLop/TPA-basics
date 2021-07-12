@@ -1,8 +1,9 @@
 {
     "java.project.sourcePaths": [
         "DyV/src",
+        "Backtracking/src",
         "Avance_Rapido/src",
         "Arboles/src",
-        "Backtracking/src"
+        "Grafos/src"
     ]
 }
