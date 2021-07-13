@@ -518,6 +518,110 @@ public class AlgorimoKruskalPerez<Clave, InfoVertice, Coste> {
 
 		}
 
+		public Lista <Par<Clave>> AlgoritmoPrimAR (Grafo <String, String, Integer> grafo){
+
+			//Creamos una lista para almacenar los vertices que vayamos visitando en cada paso dle algoritmo
+			Lista<Clave> visitados = new Lista<Clave>();
+			//Creamos una lista de pares para almacenar los vertices de origen y destino de la solucion del algoritmo
+			Lista <Par<Clave>> sol = new Lista <Par<Clave>>();
+			
+			//Creamos una matriz, que con el bucle for rellenaremos. Esta sera la matriz de adyacencia.
+			int[][] arista = new int[vertices.longitud()][vertices.longitud()];
+			//Creamos la matriz de adyacencia rellenando cada posicion con su peso correspondiente.
+			for(int i = 1; i <= vertices.longitud(); i++) {
+				for(int j = 1; j <= vertices.longitud(); j++) {
+					arista[i-1][j-1] = costeArista2(vertices.consultar(i).clave,vertices.consultar(j).clave);
+				}
+			}
+
+			Clave guia;
+
+			/*
+			 * Creamos e inicializamos variables:
+			 * 	menor --> la ultilizaremos para poder buscar el coste mas pequeño de las aristas (en la matriz de adyacencia)
+			 * 	costeTotal --> almacenara el coste de las aristas visitadas al realiszar el algoritmo
+			 * 	verticesVistos --> nos indicara cuando hemos visto todos los vertices y debemos mostrar la solucion correspondiente
+			 * 	
+			 */
+			int menor = 10000;
+			int costeTotal = 0;
+			int verticesVistos = 1;
+
+			guia = vertices.consultar(7).clave;
+			//Mientras no se recorran todos los vertices del grafo
+			while(vertices.longitud() > verticesVistos) {
+
+				//insertamos el guia
+				visitados.insertar(1, guia);
+				//calculamos sus adyacentes
+				Lista<Clave> listaAdyacencia = listaVerticesUnidos(guia);
+				//buscamos la arista mas pequeña
+
+				for(int i = 1; i <= listaAdyacencia.longitud(); i++) {
+					for(int j = 1; j <= listaAdyacencia.longitud(); j++) {
+						if(arista[i-1][j-1] < menor && arista[i-1][j-1] != 0) {
+							/*
+							 * Si la lista vertices esta vacia, menor se actualiza con el valor mas pequeño de la matriz
+							 * de adyacencia (hasta encontrar el mas pequeño)
+							 * 
+							 * Si ya tenemos vertices visitados, debemos comprobar si se forma ciclo o no con el vertice,
+							 * para ello utilizaremos la funcion 'comprobarVisitados', en caso de que no se forme ciclo,
+							 * actualizaremos la variable menor hasta encontrar el valor mas pequeño.
+							 */
+							if(visitados.longitud() != 0) {
+								menor = arista[i-1][j-1];
+							}else {
+								if(comprobarVisitados(visitados, vertices.consultar(i).clave, vertices.consultar(j).clave)) {
+									menor = arista[i-1][j-1];
+								}
+							}
+						}
+					}
+				}
+				
+				/*
+				 * Buscamos los vertices correspondientes a la arista con el coste calculado anteriormente (coste = menor)
+				 * 
+				 * Cuando encontramos la posicion cuyo valor es igual a menor (bucle if):
+				 * 		actualizamos el valor de esa posicion a 0 (indicar que ya lo hemos visitado y ese valor no lo comparamos mas)
+				 * 		insertamos en la lista de visitados los vertices
+				 * 		insertamos el par de vertices en la lista de pares sol.
+				 * 		actualizamos la variable menor, para poder buscar otra vez el mas pequeño de los costes
+				 * 		incrementamos la variable vesticesVistados en uno (condicion del while)
+				 * 		actualizamos la variable costeTotal, sumandole al resultado almacenado el nuevo coste obtenido
+				 */
+				for (int i = 1; i <= listaAdyacencia.longitud(); i++) {
+					for (int j = 1; j <= listaAdyacencia.longitud(); j++) {
+						if(arista[i-1][j-1] == menor) {
+							arista[i-1][j-1] = 0;
+							visitados.insertar(1, vertices.consultar(i).clave);	
+							visitados.insertar(1, vertices.consultar(j).clave);	
+							guia = vertices.consultar(i).clave;
+							sol.insertar(1, new Par(vertices.consultar(i).clave,vertices.consultar(j).clave));
+							menor = 100000;
+							verticesVistos++;
+							costeTotal = costeTotal + costeArista2(vertices.consultar(i).clave,vertices.consultar(j).clave);
+						}
+					}
+				}	
+
+
+
+				
+			}
+			
+			/*
+			 * Recorremos la lista de pares sol, con el objetivo de mostrar los vertices (origen y destino), es decir,
+			 * mostraremos el camino a seguir para cumplir el algoritmo de Kruskal
+			 */
+			for (int i = 1; i <= sol.longitud(); i++) {
+					System.out.println(sol.consultar(i).getOrigen()+ " --> " + sol.consultar(i).getDestino());
+			}
+			System.out.println("Coste total de las aristas = "+costeTotal);
+			return sol;
+
+		}
+
 	}
 	
 	public static void main(String args[]) {
@@ -557,7 +661,7 @@ public class AlgorimoKruskalPerez<Clave, InfoVertice, Coste> {
 		
 		//metodo de Kruskal
 		System.out.println("Camino a seguir aplicado el algoritmo de Kriskal: ");
-		miGrafo.AlgoritmoKruskalAR(miGrafo);
+		miGrafo.AlgoritmoPrimAR(miGrafo);
 		
 		System.out.println("\n*** FIN ***");
 		
