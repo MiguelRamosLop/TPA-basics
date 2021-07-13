@@ -22,23 +22,20 @@ public class AlgoritmoCambioMinimo {
 		int cantidad_monedas_cada_tipo = 0;
 
 		for (int i = 0; i < valores.length; i++) {
-
-            /* siempre que no lleguemos a la cantidad y que existan monedas para cada tipo*/
-            while (cantidad >= acumulado && numMonedas[i] > 0) {
-                /* actualizamos el sumatorio de las monedas*/
-                acumulado = acumulado + valores[i]; 
-                /* incrementamos el numero de monedas cogidas */
-                cantidad_monedas_cada_tipo++;
-                numMonedas[i] = numMonedas[i]-1;
-            }
-
-            /* en el caso de que sea mayor, vamos restando los valores que nos pasamos*/
-            acumulado = acumulado - valores[i];
-            cantidad_monedas_cada_tipo--;
-        }
+			if (numMonedas[i] > 0) {
+				acumulado = acumulado + valores[i];
+				cantidad_monedas_cada_tipo++;
+				numMonedas[i] = numMonedas[i] - 1;
+			}
+			
+			if (acumulado > cantidad) {
+				acumulado = acumulado - valores[i];
+				cantidad_monedas_cada_tipo--;
+			}
+			cantidad_monedas_cada_tipo = 0;
+		}
 
 		return cantidad_monedas_cada_tipo;
-        
 	}//seleccionar
 	
 	
@@ -55,64 +52,22 @@ public class AlgoritmoCambioMinimo {
 	 * @return Verdadero si el problema tiene soluciÃ³n. Falso en caso contrario.
 	 */
 
-	public boolean cambioMinimo_v2(int []valores, int[] numMonedas, int cantidad, int[] monedasDevueltas){
+	public boolean cambioMinimo(int []valores, int[] numMonedas, int cantidad, int[] monedasDevueltas){
+		
+		int acumulado = 0;
 
-		 /* sumatorio de las monedas*/
-         int sumatorio_monedas = 0;
-
-         /* monedas que vas a coger*/
-         int cantidad_monedas_cada_tipo = 0;
-
-		while (cantidad >= sumatorio_monedas) {
-			int x = seleccionar(valores, numMonedas, cantidad, sumatorio_monedas);
+		while (acumulado != cantidad) {
+			int x = seleccionar(valores, numMonedas, cantidad, acumulado);
 			if (x == 0) {
-				/* no hay valor adecuado para la moneda*/
 				return false;
 			} else {
-				/* actializamos el valor de monedas para comenzar a iterar de nuevo*/
-				cantidad_monedas_cada_tipo = cantidad_monedas_cada_tipo + x;
+				monedasDevueltas[x] = x;
+				acumulado = acumulado + x;
 				return true;
 			}
 		}
 
 		return true;
-
-
-	}
-	public boolean cambioMinimo(int []valores, int[] numMonedas, int cantidad, int[] monedasDevueltas){
-		
-         /* sumatorio de las monedas*/
-         int sumatorio_monedas = 0;
-
-         /* monedas que vas a coger*/
-         int cantidad_monedas_cada_tipo = 0;
-
-        for (int i = 0; i < valores.length; i++) {
-
-            /* siempre que no lleguemos a la cantidad y que existan monedas para cada tipo*/
-            while (cantidad >= sumatorio_monedas && numMonedas[i] > 0) {
-                /* actualizamos el sumatorio de las monedas*/
-                sumatorio_monedas = sumatorio_monedas + valores[i]; 
-                /* incrementamos el numero de monedas cogidas */
-                cantidad_monedas_cada_tipo++;
-                numMonedas[i] = numMonedas[i]-1;
-            }
-
-            /* en el caso de que sea mayor, vamos restando los valores que nos pasamos*/
-            sumatorio_monedas = sumatorio_monedas - valores[i];
-            cantidad_monedas_cada_tipo--;
-
-            /* añadimos a nuestro resultado en la pos del array correspondiente a cada iteracion*/
-            monedasDevueltas[i] = cantidad_monedas_cada_tipo;
-            /* actializamos el valor de monedas para comenzar a iterar de nuevo*/
-            cantidad_monedas_cada_tipo = 0;
-        }
-
-	   	if (sumatorio_monedas == cantidad) {
-			return true;
-		} else {
-			return false;
-		}
 		
 	}//cambioMinimo
 
@@ -155,11 +110,13 @@ public class AlgoritmoCambioMinimo {
 		boolean resultado = false;
 		
 		AlgoritmoCambioMinimo cm = new AlgoritmoCambioMinimo();
-		resultado = cm.cambioMinimo_v2(valores, monedas, cantidad, cambio);
+		resultado = cm.cambioMinimo(valores, monedas, cantidad, cambio);
 		if (resultado) {
 			cm.mostrarArraySolucionado(cambio);
+			System.out.println(resultado);
 		} else {
 			cm.mostrarArraySinSolucion(cambio);
+			System.out.println(resultado);
 			System.out.println("No hay solucion.\n");
 		}
 

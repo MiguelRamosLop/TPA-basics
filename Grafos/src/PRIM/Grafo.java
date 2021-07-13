@@ -371,31 +371,6 @@ public class Grafo<Clave, InfoVertice, Coste> {
         
     }
 
-	public boolean comprobarCiclos (Lista <Clave> visitados, Clave v1, Clave v2) {
-        int visitado = 0;
-
-        Lista<Clave> listaAdyacencia_v1 = listaAdyacentes(v1);
-        Lista<Clave> listaAdyacencia_v2 = listaAdyacentes(v2);
-
-        for (int i = 1; i <= listaAdyacencia_v1.longitud(); i++) {
-            if (listaAdyacencia_v1.consultar(i) == v1) {
-                visitado ++;
-            }
-        }
-
-        for (int j = 1; j <= listaAdyacencia_v2.longitud(); j++) {
-            if (listaAdyacencia_v2.consultar(j) == v2) {
-                visitado++;
-            }
-        }
-
-        if (visitado >= 2) {
-			return false;
-		} else {
-			return true;
-		}
-    }
-
 	public int costeAristaEntero (Clave v1, Clave v2) {
 		int i = 1;
 		int coste = 0;
@@ -421,100 +396,106 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		return coste;
 	}
 
+	public boolean comprobarCiclos (Lista <Clave> visitados, Clave v1, Clave v2) {
+        int visitado = 0;
+
+        Lista<Clave> listaAdyacencia_v1 = listaAdyacentes(v1);
+        Lista<Clave> listaAdyacencia_v2 = listaAdyacentes(v2);
+
+        for (int i = 1; i <= listaAdyacencia_v1.longitud(); i++) {
+            if (listaAdyacencia_v1.consultar(i) == v1) {
+                visitado ++;
+            }
+        }
+
+        for (int j = 1; j <= listaAdyacencia_v2.longitud(); j++) {
+            if (listaAdyacencia_v2.consultar(j) == v2) {
+                visitado++;
+            }
+        }
+
+        if (visitado >= 2) {
+			return false;
+		} else {
+			return true;
+		}
+    }
+
 	public Lista <Par<Clave>> AlgoritmoPrimAR (Grafo <String, String, Integer> grafo) {
 
-		/* lista de visitados que realize el seguimiento de los vertices ya dentro del camino*/
+		/* crear una lista que realice un seguimiento de los vertices incluidos*/
 		Lista<Clave> listaVisitados = new Lista<Clave>();
 
-		/* el camino del arbol de recubrimiento minimo que sera la solucion del algoritmo*/
+		/* crear una lista de costes */
+		Lista<Coste> listaCostes = new Lista<Coste>();
+
+		for(int i = 1; i <= vertices.longitud(); i++) {
+			for(int j = 1; j <= vertices.longitud(); j++) {
+				if (costeAristaEntero(vertices.consultar(i).clave, vertices.consultar(j).clave) != 0)
+					listaCostes.insertar(i, costeArista(vertices.consultar(i).clave, vertices.consultar(j).clave));
+			}
+		}
+
+		Coste coste = null; 
+		/* inicializamos nuestra solucion*/
 		Lista <Par<Clave>> arbolRecubrimientoMinimo = new Lista <Par<Clave>>();
 
+		/* Escogemos el vertice A y lo anadimos a nuestro visitados*/
+		listaVisitados.insertar(1, vertices.consultar(7).clave);
 
-		/* nuestra matriz de adyacencias donde estaran los costes*/
-		int[][] matrizAdyacencia = new int[vertices.longitud()][vertices.longitud()];
-			
-
-		/* recorremos la matriz y la rellenamos con los costes o con 0 si no hay ninguno*/
-		for(int i = 1; i <= vertices.longitud(); i++) {
-			System.out.print("|");
-			for(int j = 1; j <= vertices.longitud(); j++) {
-				if (vertices.consultar(i).clave != null && vertices.consultar(j).clave != null) {
-					matrizAdyacencia[i-1][j-1] = costeAristaEntero(vertices.consultar(i).clave,vertices.consultar(j).clave);
-				}
-				System.out.print(matrizAdyacencia[i-1][j-1]);
-				if (j != vertices.longitud()) System.out.print("\t");
-			}
-			System.out.println("|");
-		}
-
-		System.out.println("-----------------------------------------------");
-
-		/* la recorremos de nuevo poniendo todos los costes a 100, a un valor elevado (infinito) 
-		tal y como se trabja en el algoritmo de Prim, ponemos 100 dado que es lo mas oportuno y realista*/
-		/*for(int i = 1; i <= vertices.longitud(); i++) {
-			System.out.print("|");
-			for(int j = 1; j <= vertices.longitud(); j++) {
-				if (matrizAdyacencia[i-1][j-1] != 0) {
-					matrizAdyacencia[i-1][j-1] = 100;
-				}
-				System.out.print(matrizAdyacencia[i-1][j-1]);
-				if (j != vertices.longitud()) System.out.print("\t");
-			}
-			System.out.println("|");
-		}*/
-
-		/* variables para ir calibrando los momentos de ejecucion del algoritmo*/
-		int menorCosteArista = 100;
-		int costo = 0;
-		int verticesVisitados = 1;
-
-		/* condicion vital: hacer hasta que se visiten todos los vertices del grafo*/
-		while (verticesVisitados < vertices.longitud()) {
-			/* cojemos un vertice que no este visitado y que tenga un coste minimo*/
-			for(int i = 1; i <= vertices.longitud(); i++) {
-				for(int j = 1; j <= vertices.longitud(); j++) {
-					if (matrizAdyacencia[i-1][j-1] != 0 && matrizAdyacencia[i-1][j-1] < menorCosteArista) {
-						if (listaVisitados.longitud() != 0) {
-							menorCosteArista = matrizAdyacencia[i-1][j-1];
-						} else {
-							if (comprobarCiclos(listaVisitados, vertices.consultar(i).clave, vertices.consultar(j).clave))
-								menorCosteArista = matrizAdyacencia[i-1][j-1]; 
-						}
-					} /*else {
-						matrizAdyacencia[i-1][j-1] = 100;
-					}*/
-				}
-				
-			}
-
-			
-
-			for(int i = 1; i <= vertices.longitud(); i++) {
-				for(int j = 1; j <= vertices.longitud(); j++) {
-					if (matrizAdyacencia[i-1][j-1] == menorCosteArista) {
-						matrizAdyacencia[i-1][j-1] = 0;
-						listaVisitados.insertar(1, vertices.consultar(i).clave);	
-						listaVisitados.insertar(1, vertices.consultar(j).clave);	
-						arbolRecubrimientoMinimo.insertar(1, new Par(vertices.consultar(i).clave,vertices.consultar(j).clave));
-						menorCosteArista = 100;
-						verticesVisitados += verticesVisitados;
-						costo = costo + costeAristaEntero(vertices.consultar(i).clave,vertices.consultar(j).clave);
-
-					}
-
-				}
-			}	
-
-
-		}
+		Lista<Clave> listaAdyacencia = listaAdyacentes(vertices.consultar(7).clave);
 		
-		for (int i = 1; i <= arbolRecubrimientoMinimo.longitud(); i++) {
-			System.out.println(arbolRecubrimientoMinimo.consultar(i).getOrigen()+ " --> " + arbolRecubrimientoMinimo.consultar(i).getDestino());
-	}
+		for (int k = 1; k <= vertices.longitud(); k++ ) {
+			if (vertices.consultar(k).clave == listaAdyacencia.consultar(1))
+				if (costeAristaEntero(vertices.consultar(k).clave, listaAdyacencia.consultar(1)) 
+					< listaCostes.consultar(k).hashCode())
+						coste = listaCostes.consultar(k);
+				if (costeAristaEntero(vertices.consultar(k).clave, listaAdyacencia.consultar(2)) 
+					< listaCostes.consultar(k).hashCode())
+						coste = listaCostes.consultar(k);
+				if (costeAristaEntero(vertices.consultar(k).clave, listaAdyacencia.consultar(3)) 
+					< listaCostes.consultar(k).hashCode())
+						coste = listaCostes.consultar(k);		
+			}
 
-		System.out.println(costo);
-		return arbolRecubrimientoMinimo;
-	}
+
+			return arbolRecubrimientoMinimo;
+		}	
+
+	
+		public Lista <Par<Clave>> AlgoritmoPrimAR (Grafo <String, String, Integer> grafo) {
+
+			int inf = 9999999;
+
+			int V = grafo.numVertices();
+
+			int no_edge;
+
+			/* crear una lista que realice un seguimiento de los vertices incluidos*/
+			Lista<Clave> listaVisitados = new Lista<Clave>();
+
+			/* Escogemos el vertice A y lo anadimos a nuestro visitados*/
+			listaVisitados.insertar(1, vertices.consultar(7).clave);
+
+			Lista<Clave> listaAdyacencia = listaAdyacentes(vertices.consultar(7).clave);
+
+			no_edge = 0;
+
+			while (no_edge < V - 1) {
+				int min = inf;
+				for (int i = 0; i < V; i++) {
+					if (listaVisitados.longitud() != 0) {
+						for (int j = 0; j < V; j++) {
+							
+						}
+					}
+				}
+					   
+			}
+			
+
+		}
+	
 	
     public static void main(String args[]) { 
 
