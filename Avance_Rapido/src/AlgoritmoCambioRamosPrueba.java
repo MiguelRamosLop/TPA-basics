@@ -1,19 +1,13 @@
 public class AlgoritmoCambioRamosPrueba {
 
     public static void main(String[] args) throws Exception {
-        /* tipos de monedas que hay*/
-        int valores[] = {100, 50, 20, 10, 5, 1}; 
+        int[] valores = {100, 50, 20, 10, 5, 1}; //Array que alamacena los valores de las diferentes monedas: 1, 2, 5, 10, 25, 100. 
+		int[] monedas = {5, 10, 16, 25, 50, 100}; //Array que almacena cuantas monedas de cada valor existen
+        int[] cambio = new int[valores.length]; //Array que almacena el resultado: el num. de monedas de cada valor que usaremos  
+		
+		int cantidad = 137; //Variable para almacenar el cambio que se quiere devolver
 
-        /* numero de monedas para cada tipo, es un array de finitos*/
-        int cantidades[] = {5, 10, 16, 25, 50, 100}; 
-
-        /* importe a devolver*/
-        int cantidad = 137;
-
-        /* nuestro array solucion*/
-        int cambio[] = new int[valores.length];
-
-        System.out.println(cambioMinimo(valores, cantidades, cantidad, cambio));
+        System.out.println(cambioMinimo(valores, monedas, cantidad, cambio));
 
         /* ****** DATOS PERSONALES ****** */
 		
