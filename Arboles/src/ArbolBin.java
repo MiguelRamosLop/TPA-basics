@@ -298,6 +298,21 @@ public class ArbolBin<T> {
 			return true;
 		}
 
+		boolean esCompleto(ArbolBin <Integer> node) {
+			if (node == null) {
+				return true;
+			} else {
+				if (node.hijoIzquierdo().esVacio() && node.hijoDerecho().esVacio()) {
+					return true;
+				}
+				if (!node.hijoIzquierdo().esVacio() && !node.hijoDerecho().esVacio()) {
+					return (esCompleto(node.hijoIzquierdo()) &&  esCompleto(node.hijoDerecho()));
+				}
+			}
+
+			return false;
+		}
+
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
 		
@@ -377,6 +392,13 @@ public class ArbolBin<T> {
 
 		System.out.println("Es BST??");
 		System.out.println(raiz.isBST(raiz));
+
+		boolean esCompleto = raiz.esCompleto(raiz);
+		if (esCompleto) {
+			System.out.println("Es completo");
+		} else {
+			System.out.println("No es completo");
+		}
 		
 	}
 
