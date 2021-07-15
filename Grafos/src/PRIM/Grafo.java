@@ -435,7 +435,7 @@ public class Grafo<Clave, InfoVertice, Coste> {
 
 			//recorro los adyacentes quedandome con el de menor coste, asignando a c el coste de la arista y a next la clave de mi adyacente escogido
 			for (int j = 1; j < listaAdyacencia.longitud(); j++) {
-				if (costeAristaEntero(guia, listaAdyacencia.consultar(j)) < c)  && listaVisitados.buscar(listaAdyacencia.consultar(j)) == 0) {
+				if (costeAristaEntero(guia, listaAdyacencia.consultar(j)) < c  && listaVisitados.buscar(listaAdyacencia.consultar(j)) == 0) {
 					c = costeAristaEntero(guia, listaAdyacencia.consultar(j));
 					next = listaAdyacencia.consultar(j);
 					
