@@ -661,7 +661,7 @@ public class AlgorimoKruskalPerez<Clave, InfoVertice, Coste> {
 		
 		//metodo de Kruskal
 		System.out.println("Camino a seguir aplicado el algoritmo de Kriskal: ");
-		miGrafo.AlgoritmoPrimAR(miGrafo);
+		miGrafo.AlgoritmoKruskalAR(miGrafo);
 		
 		System.out.println("\n*** FIN ***");
 		
