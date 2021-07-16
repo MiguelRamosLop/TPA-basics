@@ -1,5 +1,14 @@
 package PRIM;
 
+/**
+ * 
+ * @author Miguel Ramos López
+ * @expediente 21937215
+ * @fecha 20-7-2021
+ *
+ */
+
+
 public class AlgoritmoPrimRamos<Clave, InfoVertice, Coste> {
     
 	protected class NodoVertice {
@@ -400,7 +409,11 @@ public class AlgoritmoPrimRamos<Clave, InfoVertice, Coste> {
 	}
 
 
-	public Lista <Par<Clave>> AlgoritmoPrimAR (AlgoritmoPrimRamos <String, String, Integer> grafo) {
+	public Lista <Par<Clave>> AlgoritmoPrimAR (AlgoritmoPrimRamos <String, String, Integer> grafo, Clave a) {
+
+		// en el metodo de la plantilla tambien le pasas una Lista<Par<Clave>> T, pero no se que es la T no queda 
+		//dicho en ningun sitio y al ser una letra sola tampoco lo puedo deducir, todos las Lista<Par<Clave>> necesarias
+		//estan creadas a continuacion
 
 		/* crear una lista que realice un seguimiento de los vertices incluidos*/
 		Lista<Clave> listaVisitados = new Lista<Clave>();
@@ -420,7 +433,7 @@ public class AlgoritmoPrimRamos<Clave, InfoVertice, Coste> {
 		int costeTotal = 0; //conteo del coste total
 
 		//le asigno el primer vertice (El A) tal y como indica el enunciado
-		guia = vertices.consultar(7).clave;
+		guia = a;
 
 
 		//insertamos el guia en visitados
@@ -509,7 +522,7 @@ public class AlgoritmoPrimRamos<Clave, InfoVertice, Coste> {
 		
 		System.out.println("Graph:" + graph);	
 
-		graph.AlgoritmoPrimAR(graph);
+		graph.AlgoritmoPrimAR(graph,"A");
 
 		/* ****** DATOS PERSONALES ****** */
 		
