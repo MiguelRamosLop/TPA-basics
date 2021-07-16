@@ -1,11 +1,5 @@
-/**
- * 
- * @author Ramos, Miguel
- * @21937215 
- * @20/7/2021
- *
- */
 public class AlgoritmoCambioRamos {
+
     /**
 	 * MÃ©todo que selecciona la moneda a devolver en casa caso, suponiendo que haya existencias.
 	 * 
@@ -16,14 +10,11 @@ public class AlgoritmoCambioRamos {
 	 * @return
 	 */
 	private int seleccionar (int []valores, int[] numMonedas, int cantidad, int acumulado){
-		//TO DO
-		return 0; // eliminar, incluido para que compile
-		
 
+        return 0;
 	}//seleccionar
-	
-	
-	/**
+
+    /**
 	 * MÃ©todo que devuelve un array con el nÃºmero de monedas de cada valor que se usarÃ¡n para devolver 
 	 * la cantidad que se quiere cambiar, a partir del nÃºmero de monedas de cada tipo disponibles. 
 	 * Si no hay cambio posible, devuelve FALSE. Devuelve TRUE si existe soluciÃ³n.
@@ -35,45 +26,56 @@ public class AlgoritmoCambioRamos {
 	 * 			Si no hay soluciÃ³n posible, debe devolver falso y el array no serÃ¡ vÃ¡lido. 
 	 * @return Verdadero si el problema tiene soluciÃ³n. Falso en caso contrario.
 	 */
-	public boolean cambioMinimo(int []valores, int[] numMonedas, int cantidad, int[] monedasDevueltas){
-		
-         /* sumatorio de las monedas*/
-         int sumatorio_monedas = 0;
+    public static boolean cambioMinimo (int[] valores, int[] cantidades, int cantidad, int[] cambio) {
+        
+        /* sumatorio de las monedas*/
+        int sumatorio_monedas = 0;
 
-         /* monedas que vas a coger*/
-         int cantidad_monedas_cada_tipo = 0;
+        /* monedas que vas a coger*/
+        int cantidad_monedas_cada_tipo = 0;
 
-        for (int i = 0; i < valores.length; i++) {
+       for (int i = 0; i < valores.length; i++) {
 
-            /* siempre que no lleguemos a la cantidad y que existan monedas para cada tipo*/
-            while (cantidad >= sumatorio_monedas && numMonedas[i] > 0) {
-                /* actualizamos el sumatorio de las monedas*/
-                sumatorio_monedas = sumatorio_monedas + valores[i]; 
-                /* icnrememntamos el numero de monedas cogidas */
-                cantidad_monedas_cada_tipo++;
-                numMonedas[i] = numMonedas[i]-1;
-            }
+           /* siempre que no lleguemos a la cantidad y que existan monedas para cada tipo*/
+           while (cantidad >= sumatorio_monedas && cantidades[i] > 0) {
+               /* actualizamos el sumatorio de las monedas*/
+               sumatorio_monedas = sumatorio_monedas + valores[i]; 
+               /* icnrememntamos el numero de monedas cogidas */
+               cantidad_monedas_cada_tipo++;
+               cantidades[i] = cantidades[i]-1;
+           }
 
-            /* en el caso de que sea mayor, vamos restando los valores que nos pasamos*/
-            sumatorio_monedas = sumatorio_monedas - valores[i];
-            cantidad_monedas_cada_tipo--;
+           /* en el caso de que sea mayor, vamos restando los valores que nos pasamos*/
+           sumatorio_monedas = sumatorio_monedas - valores[i];
+           cantidad_monedas_cada_tipo--;
 
-            /* añadimos a nuestro resultado en la pos del array correspondiente a cada iteracion*/
-            monedasDevueltas[i] = cantidad_monedas_cada_tipo;
-            /* actializamos el valor de monedas para comenzar a iterar de nuevo*/
-            cantidad_monedas_cada_tipo = 0;
-        }
+           /* añadimos a nuestro resultado en la pos del array correspondiente a cada iteracion*/
+           cambio[i] = cantidad_monedas_cada_tipo;
+           /* actializamos el valor de monedas para comenzar a iterar de nuevo*/
+           cantidad_monedas_cada_tipo = 0;
+       }
 
-       if (sumatorio_monedas == cantidad) {
-            return true;
-       } else {
-            return false;
-       }		
-		
-	}//cambioMinimo
+      if (sumatorio_monedas == cantidad) {
+           /* imprimo el resultado del array */
+           for (int i = 0; i < cambio.length; i++) {
+               System.out.print(cambio[i] + " ");
+           }
+           return true;
+      } else {
+           /* imprimo el resultado del array siguiendo las instrucciones de la entrega */
+           for (int i = 0; i < cambio.length; i++) {
+               if (i == 0) {
+                   cambio[i] = -1;
+               } else {
+                   cambio[i] = 0;
+               }
+               System.out.print(cambio[i] + " ");
+           }
+           return false;
+      }
+   }
 
-	
-	/**
+   /**
 	 * MÃ©todo que imprime por pantalla el contenido de un array de enteros
 	 * @param array
 	 */
@@ -85,42 +87,28 @@ public class AlgoritmoCambioRamos {
 		System.out.println("]");
 	}
 
-    public void mostrarArraySinSolucion (int[] array) {
-    	/* imprimo el resultado del array siguiendo las instrucciones de la entrega */
-		System.out.print("[");
-        for (int i = 0; i < array.length; i++) {
-            if (i == 0) {
-                array[i] = -1;
-            } else {
-                array[i] = 0;
-            }
-            System.out.print(array[i] + " ");
-        }
-		System.out.println("]");
-    }
-	
-	
-	public static void main(String[] args) {
-		//TO DO: Instanciar e inicializar convenientemente los arrays siguientes:
-		int[] valores = {200, 100, 50, 20, 10, 5, 2, 1}; //Array que alamacena los valores de las diferentes monedas: 1, 2, 5, 10, 25, 100. 
+
+    public static void main(String[] args) throws Exception {
+        
+        int[] valores = {200, 100, 50, 20, 10, 5, 2, 1}; //Array que alamacena los valores de las diferentes monedas: 1, 2, 5, 10, 25, 100. 
 		int[] monedas = {1, 1, 1, 1, 1, 1, 1, 1}; //Array que almacena cuantas monedas de cada valor existen
-		int[] cambio = null; //Array que almacena el resultado: el num. de monedas de cada valor que usaremos 
+        int[] cambio = new int[valores.length]; //Array que almacena el resultado: el num. de monedas de cada valor que usaremos  
 		
 		int cantidad = 289; //Variable para almacenar el cambio que se quiere devolver
-		boolean resultado = false; //Variable para saber si hay soluciÃ³n al problema
+
+        //si se quiere ver la matriz y el true/false devuleto descomentar la siguiente linea y poner el método como estatico
+        //System.out.println(cambioMinimo(valores, monedas, cantidad, cambio));
+
+        boolean resultado = false; //Variable para saber si hay soluciÃ³n al problema
 		
 		AlgoritmoCambioRamos cm = new AlgoritmoCambioRamos();
 		resultado = cm.cambioMinimo(valores, monedas, cantidad, cambio);
-		if (resultado)
-			cm.mostrarArray(cambio);
-		else {
-            cm.mostrarArraySinSolucion(cambio);
-            System.out.println("No hay soluciÃ³n.\n");		
-        }
+		if (resultado) {
+            cm.mostrarArray(cambio);
+        } else
+			System.out.println("No hay soluciÃ³n.\n");
 
-			
-		
-		/* ****** DATOS PERSONALES ****** */
+        /* ****** DATOS PERSONALES ****** */
 		
 		String miNombre = "Miguel";
 		String misApellidos = "Ramos Lopez";
@@ -132,11 +120,8 @@ public class AlgoritmoCambioRamos {
 		System.out.println(" * Expediente:\t" + miExpediente);
 		
 		System.out.println("\n*** FIN ***");
+
+    }
+    
+    
 }
-
-}
-
-
-
-
-	
