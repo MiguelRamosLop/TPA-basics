@@ -429,13 +429,16 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		//Mientras no se recorran todos los vertices del grafo
 		while(vertices.longitud() > v) {
 
+			//la asignamos un coste alto para hacer las comparaciones mas sencillas
 			c = 20;
+
 			//calculamos sus adyacentes
 			Lista<Clave> listaAdyacencia = listaAdyacentes(guia);
 
+
 			//recorro los adyacentes quedandome con el de menor coste, asignando a c el coste de la arista y a next la clave de mi adyacente escogido
-			for (int j = 1; j < listaAdyacencia.longitud(); j++) {
-				if (costeAristaEntero(guia, listaAdyacencia.consultar(j)) < c  && listaVisitados.buscar(listaAdyacencia.consultar(j)) == 0) {
+			for (int j = 1; j <= listaAdyacencia.longitud(); j++) {
+				if (costeAristaEntero(guia, listaAdyacencia.consultar(j)) < c && listaVisitados.buscar(listaAdyacencia.consultar(j)) == 0) {
 					c = costeAristaEntero(guia, listaAdyacencia.consultar(j));
 					next = listaAdyacencia.consultar(j);
 					
