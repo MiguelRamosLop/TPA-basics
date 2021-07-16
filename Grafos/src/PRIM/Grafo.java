@@ -423,7 +423,7 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		guia = vertices.consultar(7).clave;
 
 
-		//insertamos el guia
+		//insertamos el guia en visitados
 		listaVisitados.insertar(pos, guia);
 
 		//Mientras no se recorran todos los vertices del grafo
@@ -438,21 +438,35 @@ public class Grafo<Clave, InfoVertice, Coste> {
 
 			//recorro los adyacentes quedandome con el de menor coste, asignando a c el coste de la arista y a next la clave de mi adyacente escogido
 			for (int j = 1; j <= listaAdyacencia.longitud(); j++) {
+				// si el coste de mi elemento actual es menor que c y no lo he visitados
 				if (costeAristaEntero(guia, listaAdyacencia.consultar(j)) < c && listaVisitados.buscar(listaAdyacencia.consultar(j)) == 0) {
+					// actualizo el c y next
 					c = costeAristaEntero(guia, listaAdyacencia.consultar(j));
 					next = listaAdyacencia.consultar(j);
-					
-				}
-				
+				}	
 			}
+	
+			// recorro los ya visitados
+			/*for (int k = 1; k <= listaVisitados.longitud(); k++) {
+				// si existe una arista con menor coste partiendo de un ya visitado hacia un adyacente de un ya visitado
+				//y ese adyacente del ya visitado no esta visitado
+				if (costeAristaEntero(listaVisitados.consultar(k), listaAdyacentes(listaVisitados.consultar(k)).consultar(k)) < c
+				&& listaVisitados.buscar(listaAdyacentes(listaVisitados.consultar(k)).consultar(k)) != 0) {
+					//actualizo los valores
+					c = costeAristaEntero(listaVisitados.consultar(k), listaAdyacentes(listaVisitados.consultar(k)).consultar(k));
+					next = listaAdyacentes(listaVisitados.consultar(k)).consultar(k);
+				}
+			}*/
 
-			pos++;
-			listaVisitados.insertar(pos, next);
-			arbolRecubrimientoMinimo.insertar(pos-1, new Par(guia, next));
-			guia = next;
-			v++;
+			/* salgo del for ya con mi nuevoo coste cogido y con mi next */
+
+			pos++; // incremento la pos para insertar a lista visitados
+			listaVisitados.insertar(pos, next); // meto mi siguiente vertex en visitados
+			arbolRecubrimientoMinimo.insertar(pos-1, new Par(guia, next)); // lo incluyo en el arbol de recubrimiento minimo
+			guia = next; //ahora mi guia va a ser mi next, y vamos a iterar de nuevo buscando un coste y un next diferentes
+			v++; // incremento el numero de vertices
 			
-			costeTotal = costeTotal + c;
+			costeTotal = costeTotal + c; // añado al coste total el coste que he obtenido en ese tramo
 				
 		}
 
@@ -464,7 +478,7 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		System.out.println("Coste total= "+costeTotal);
 		
 		
-		return arbolRecubrimientoMinimo;
+		return arbolRecubrimientoMinimo; //devulevo el resultado
 	}	
 	
 	
