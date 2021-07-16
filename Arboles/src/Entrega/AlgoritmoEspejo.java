@@ -1,22 +1,24 @@
+package Entrega;
+
 /**
  * 
- * @author Nombre y apellidos
- * @expediente 12345678
- * @fecha dd-mm-aaaa
+ * @author Miguel Ramos Lopez
+ * @expediente 21937215
+ * @fecha 20-7-2021
  *
  */
 
 public class AlgoritmoEspejo <Info> {
 
     public static <Info> ArbolBin<Info> algoritmoEspejoPractica (ArbolBin<Info> arbol){ 
-        if (arbol == null) {
+        if (arbol == null) { // caso en el que el arbol sea null
             return arbol;
         } else {
-           arbol.mirror(arbol.raiz);
-           return arbol;
+           arbol.mirror(arbol.raiz); // llamamos a la funcion pasandole la raiz
+           return arbol; //retornamos el arbol
         }
     }
-
+	
 	public static void main(String[] args) {
 
 		// declaro e inicializo un árbol de enteros
@@ -51,6 +53,22 @@ public class AlgoritmoEspejo <Info> {
 		espejoChar=algoritmoEspejoPractica(a4);
 		// dibujo el espejo
 		espejoChar.dibujar(1);
+
+		/* ****** DATOS PERSONALES ****** */
+		
+		String miNombre = "Miguel";
+		String misApellidos = "Ramos López";
+		String miExpediente = "21937215";
+		
+		System.out.println("\nESTUDIANTE:");
+		System.out.println(" * Apellidos:\t" + misApellidos);
+		System.out.println(" * Nombre:\t" + miNombre);
+		System.out.println(" * Expediente:\t" + miExpediente);
+		
+		System.out.println("\n*** FIN ***");
+	
+	
+
 	}
 
 }

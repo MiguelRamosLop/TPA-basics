@@ -1,6 +1,6 @@
 package PRIM;
 
-public class Grafo<Clave, InfoVertice, Coste> {
+public class AlgoritmoPrimRamos<Clave, InfoVertice, Coste> {
     
 	protected class NodoVertice {
 		Clave clave;
@@ -35,7 +35,7 @@ public class Grafo<Clave, InfoVertice, Coste> {
 
 	Lista<Lista<NodoArista>> aristas;
 
-	public Grafo() {
+	public AlgoritmoPrimRamos() {
 		vertices = new Lista<NodoVertice>();
 		aristas = new Lista<Lista<NodoArista>>();
 	}
@@ -400,7 +400,7 @@ public class Grafo<Clave, InfoVertice, Coste> {
 	}
 
 
-	public Lista <Par<Clave>> AlgoritmoPrimAR (Grafo <String, String, Integer> grafo) {
+	public Lista <Par<Clave>> AlgoritmoPrimAR (AlgoritmoPrimRamos <String, String, Integer> grafo) {
 
 		/* crear una lista que realice un seguimiento de los vertices incluidos*/
 		Lista<Clave> listaVisitados = new Lista<Clave>();
@@ -484,7 +484,7 @@ public class Grafo<Clave, InfoVertice, Coste> {
 	
     public static void main(String args[]) { 
 
-        Grafo<String, String, Integer> graph = new Grafo<String, String, Integer>();
+        AlgoritmoPrimRamos<String, String, Integer> graph = new AlgoritmoPrimRamos<String, String, Integer>();
 
 		
 		graph.insertarVertice("A", "vA");        
@@ -510,6 +510,19 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		System.out.println("Graph:" + graph);	
 
 		graph.AlgoritmoPrimAR(graph);
+
+		/* ****** DATOS PERSONALES ****** */
+		
+		String miNombre = "Miguel";
+		String misApellidos = "Ramos López";
+		String miExpediente = "21937215";
+		
+		System.out.println("\nESTUDIANTE:");
+		System.out.println(" * Apellidos:\t" + misApellidos);
+		System.out.println(" * Nombre:\t" + miNombre);
+		System.out.println(" * Expediente:\t" + miExpediente);
+		
+		System.out.println("\n*** FIN ***");
 
     }
     
