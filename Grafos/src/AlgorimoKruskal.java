@@ -1,6 +1,6 @@
 
 
-public class AlgorimoKruskalPerez<Clave, InfoVertice, Coste> {
+public class AlgorimoKruskal<Clave, InfoVertice, Coste> {
 	
 	public static class Grafo<Clave, InfoVertice, Coste> {
 		protected class NodoVertice {
