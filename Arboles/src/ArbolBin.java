@@ -331,6 +331,52 @@ public class ArbolBin<T> {
 			return false;
 		}
 
+		public boolean isBalanced(ArbolBin <Integer> node) {
+			if (node == null || node.esVacio()) {
+				return true;
+			} else {
+				int hleft = node.calcularAltura(node.hijoIzquierdo());
+				int hright = node.calcularAltura(node.hijoDerecho());
+
+				if (hleft - hright <= 1 && hleft - hright > -2) {
+					isBalanced(node.hijoIzquierdo());
+					isBalanced(node.hijoDerecho());
+				} else {
+					return false;
+				}
+			}
+
+			return true;
+
+		}
+
+		public int leaves (ArbolBin <Integer> node) {
+			if (node == null || node.esVacio()) {
+				return 0;
+			} else {
+				if (node.hijoIzquierdo().esVacio() && node.hijoDerecho().esVacio()) {
+					return 1;
+				} else {
+					return leaves(node.hijoIzquierdo()) + leaves(node.hijoDerecho());
+				}
+				
+			}
+			
+		}
+
+		public int numNodes (ArbolBin <Integer> node) {
+			if (node == null) {
+				return 0;
+			}
+			if (node.esVacio()) {
+				return 1;
+			} else {
+				return 1 + numNodes(node.hijoIzquierdo()) + numNodes(node.hijoDerecho());
+			}
+			
+		}
+
+
 	public static void main(String[] args) {
 		/* Para instanciar un nodo, lo que hacemos es crear un objeto de la clase ArbolBin, del tipo concreto que queramos ya que esta inicializado como <T>*/
 		
@@ -425,6 +471,14 @@ public class ArbolBin<T> {
 			System.out.println("No es lleno");
 		}
 		
+		System.out.println("Es balanceado???");
+		System.out.println(raiz.isBalanced(raiz));
+
+		System.out.println("Nodos hoja");
+		System.out.println(raiz.leaves(raiz));
+
+		System.out.println("Num nodos");
+		System.out.println(raiz.numNodes(raiz));
 	}
 
 }
