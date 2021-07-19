@@ -1,27 +1,6 @@
 public class Mochila {
 
-    public static void main(String[] args) throws Exception {
-        
-        /* peso de la mochila */
-        int m = 10; 
-
-        /* array de pesos posibles */
-        int [] pesos = {10, 3, 3, 4};
-
-        /* array de benficios para cada peso posible */
-        int [] beneficios = {10, 9, 9, 9};
-
-        int solucion[] = new int [pesos.length];
-
-        mochila(pesos, beneficios, m, solucion);
-
-        //int [] beneficios2 = {10, 1, 1, 1};
-
-        //int solucion2[] = new int [pesos.length];
-
-        //mochila(pesos, beneficios2, m, solucion2);
-
-    }
+  
 
     public static void mochila (int [] pesos, int [] beneficios, int m, int[] solucion) {
 
@@ -56,5 +35,28 @@ public class Mochila {
         for (int j = 0; j < solucion.length; j++) {
             System.out.print(solucion[j] + " ");
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        
+        /* peso de la mochila */
+        int m = 10; 
+
+        /* array de pesos posibles */
+        int [] pesos = {10, 3, 3, 4};
+
+        /* array de benficios para cada peso posible */
+        int [] beneficios = {10, 9, 9, 9};
+
+        int solucion[] = new int [pesos.length];
+
+        mochila(pesos, beneficios, m, solucion);
+
+        //int [] beneficios2 = {10, 1, 1, 1};
+
+        //int solucion2[] = new int [pesos.length];
+
+        //mochila(pesos, beneficios2, m, solucion2);
+
     }
 }

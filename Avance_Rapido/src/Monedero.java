@@ -39,6 +39,32 @@ public class Monedero {
 
     }
 
+    public static void cambioMinimo2 (int[] valores, int[] cantidades, int cantidad, int[] cambio) {
+
+        for (int i = 0; i < valores.length; i++) {
+            cambio[i] = 0;
+        }
+
+        int acumulado = cantidad;
+        int i = 0;
+
+        while (valores[i] <= acumulado && i < valores.length) {
+
+            acumulado = acumulado - valores[i];
+            cambio[i] = 1;
+            i++;
+        }
+
+        if (i < valores.length) {
+            cambio[i] = acumulado / valores[i];
+        }
+
+         
+         for (int j = 0; j < cambio.length; j++) {
+            System.out.print(cambio[j] + " ");
+        }
+    }
+
     public static void main(String[] args) {
 
         int[] valores = {100, 50, 20, 10, 5, 1};
@@ -46,7 +72,7 @@ public class Monedero {
         int cantidad = 137;
         int[] numMonedas = new int[valores.length];
 
-        System.out.println(cambioMinimo(valores, cantidades, cantidad, numMonedas));
+        cambioMinimo3(valores, cantidades, cantidad, numMonedas);
 
     }
 }
