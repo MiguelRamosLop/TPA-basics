@@ -474,6 +474,36 @@ public class Grafo<Clave, InfoVertice, Coste> {
 		}
 	}
 
+	public int numSumideroGrafo(Grafo<Clave,InfoVertice,Coste> gr) {
+		int contador = 0;
+
+		Lista<Clave> verticess = gr.listaVertices();
+
+		for (int i = 1; i <= verticess.longitud(); i++) {
+			Clave v = verticess.consultar(i);
+			if (gr.gradoEntrada(v) != 0 && gr.gradoSalida(v) == 0) {
+				contador++;
+			}
+		}
+
+		return contador;
+	}
+
+	public int numFuenteGrafo (Grafo<Clave,InfoVertice,Coste> gr) {
+
+		int contadorFuentes = 0;
+
+		Lista<Clave> verticess = gr.listaVertices();
+
+		for (int i = 1; i <= verticess.longitud(); i++) {
+			Clave v = verticess.consultar(i);
+			if (gr.gradoEntrada(v) == 0 && gr.gradoSalida(v) != 0) {
+				contadorFuentes++;
+			}
+		}
+
+		return contadorFuentes;
+	}
 
     public static void main(String args[]) {
         /* nos creamos un grafo */
@@ -530,6 +560,12 @@ public class Grafo<Clave, InfoVertice, Coste> {
 
 		System.out.println("E es sumidero???:");
 		System.out.println(graph.esSumidero("E"));
+
+		System.out.println("Numero de sumideros del grafo???:");
+		System.out.println(graph.numSumideroGrafo(graph));
+
+		System.out.println("Numero de fuentes del grafo???:");
+		System.out.println(graph.numFuenteGrafo(graph));
 
 
 	
