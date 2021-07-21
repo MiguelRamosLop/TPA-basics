@@ -72,7 +72,7 @@ public class Monedero {
         int cantidad = 137;
         int[] numMonedas = new int[valores.length];
 
-        cambioMinimo3(valores, cantidades, cantidad, numMonedas);
+        cambioMinimo(valores, cantidades, cantidad, numMonedas);
 
     }
 }
